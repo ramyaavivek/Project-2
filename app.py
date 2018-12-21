@@ -42,52 +42,46 @@ def degrees():
     """Return a list of sample names."""
 
     # Use Pandas to perform the sql query
-    results = db.session.query(Survey.UndergradMajor, func.max(Survey.ConvertedSalary)).filter(Survey.UndergradMajor != '').filter(Survey.Currency.contains('U.S. dollars ($)')).filter(Survey.Employment=='Employed full-time').filter(Survey.Student=='No').filter(Survey.YearsCoding=='0-2 years').group_by(Survey.UndergradMajor).order_by(func.max(Survey.ConvertedSalary)).all()
+
+    results = db.session.query(Survey.UndergradMajor, func.avg(Survey.ConvertedSalary)).filter(Survey.UndergradMajor != '').filter(Survey.Currency.contains('U.S. dollars ($)')).filter(Survey.Employment=='Employed full-time').filter(Survey.Student=='No').filter(Survey.YearsCoding=='0-2 years').group_by(Survey.UndergradMajor).order_by(func.max(Survey.ConvertedSalary)).all()
     
+    list1=[]
+    list2=[]
     majorList = []
-   
+    majorDict = {}
     for result in results:
-        majorDict = {}
-        majorDict['category'] = result[0]
-        majorDict['amount'] = result[1]
-        print(majorDict)
-        majorList.append(majorDict)
+        
+        list1.append(result[0])
+        list2.append(result[1])
+       
+    majorDict['label']=list1
+    majorDict['data']=list2    
+    #majorList.append(majorDict)
 
     # df = pd.read_sql_query(results, db.session.bind)
     # df_degrees = dfYoung[['UndergradMajor','ConvertedSalary']]
     # df_degrees=df_degrees.groupby('UndergradMajor').max()
     # Return a list of the column names (sample names)
-    return jsonify(majorList)
+    return jsonify(majorDict)
 
 
-@app.route("/metadata/<sample>")
-def sample_metadata(sample):
+@app.route("/jobsatisfaction")
+def getjob():
     """Return the MetaData for a given sample."""
-    sel = [
-        Samples_Metadata.sample,
-        Samples_Metadata.ETHNICITY,
-        Samples_Metadata.GENDER,
-        Samples_Metadata.AGE,
-        Samples_Metadata.LOCATION,
-        Samples_Metadata.BBTYPE,
-        Samples_Metadata.WFREQ,
-    ]
-
-    results = db.session.query(*sel).filter(Samples_Metadata.sample == sample).all()
-
-    # Create a dictionary entry for each row of metadata information
-    sample_metadata = {}
+    results = db.session.query(Survey.JobSatisfaction, func.count(Survey.JobSatisfaction)).group_by(Survey.JobSatisfaction).all()
+    label1=[]
+    data1=[]
+    majorList = []
+    jobdict = {}
     for result in results:
-        sample_metadata["sample"] = result[0]
-        sample_metadata["ETHNICITY"] = result[1]
-        sample_metadata["GENDER"] = result[2]
-        sample_metadata["AGE"] = result[3]
-        sample_metadata["LOCATION"] = result[4]
-        sample_metadata["BBTYPE"] = result[5]
-        sample_metadata["WFREQ"] = result[6]
-
-    print(sample_metadata)
-    return jsonify(sample_metadata)
+        
+        label1.append(result[0])
+        data1.append(result[1])
+       
+    jobdict['label']=label1
+    jobdict['data']=data1    
+    print(jobdict)
+    return jsonify(jobdict)
 
 @app.route("/freq/<sample>")
 def sample_freq(sample):
