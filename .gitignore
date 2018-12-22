@@ -1,0 +1,4 @@
+# database, since database is way over 100 MB limit
+developers.sqlite
+
+.DS_Store
