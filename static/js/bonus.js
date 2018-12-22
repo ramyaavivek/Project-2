@@ -64,8 +64,8 @@ d3.json("/gender").then(function(d){
     var label=d.label;
     var data=d.data;
     tcount.innerHTML=data[0];
-    fcount.innerHTML=data[1];
-    mcount.innerHTML=data[2];
+    fcount.innerHTML=data[2];
+    mcount.innerHTML=data[1];
     ocount.innerHTML=data[3];
 });
 
