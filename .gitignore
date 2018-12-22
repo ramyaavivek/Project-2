@@ -2,3 +2,5 @@
 developers.sqlite
 
 .DS_Store
+static/.DS_Store
+db/.DS_Store
