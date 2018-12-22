@@ -79,13 +79,13 @@ d3.json('/codinglanguages').then(d => {
     console.log(d);
 
     // Need select devtype from user entry. For now, hard code it
-    var ds = 'Data scientist or machine learning specialist';
-    var backend = 'Back-end developer';
+    var sel1 = 'Data scientist or machine learning specialist';
+    var sel2 = 'Back-end developer';
 
-    console.log(d[ds]);
+    console.log(d[sel1]);
 
-    var dev1= d[ds]
-    var dev2 = d[backend]
+    var dev1= d[sel1];
+    var dev2 = d[sel2];
 
     // use object.enteries and forEach to iterate over each dev data and push the keys to labels list and values to data list
     // define function to format data
@@ -109,7 +109,9 @@ d3.json('/codinglanguages').then(d => {
         // dictionary to hold all the lists of data
         var dataDict = {
                         data1: data1,
+                        title1: sel1,
                         data2: data2,
+                        title2: sel2,
                         labels: labels,
                         };
 
@@ -132,6 +134,8 @@ d3.json('/codinglanguages').then(d => {
         }
     };
 
+    var lineTension = 5;
+
     var myRadarChart = new Chart(ctxRadar, {
         type: 'radar',
         data: {
@@ -139,11 +143,18 @@ d3.json('/codinglanguages').then(d => {
             datasets: [
                 {
                     data: langData.data1,
-                    backgroundColor: 'blue'
+                    label: langData.title1,
+                    backgroundColor: 'rgba(66, 164, 244, 0.2)',
+                    pointHoverBackgroudColor: 'rgba(66, 164, 244, 0.75)',
+                    lineTension: lineTension
+                    
                 }, 
                 {
                     data: langData.data2,
-                    backgroundColor: 'orange'
+                    label: langData.title2,
+                    backgroundColor: 'rgba(244, 172, 65, 0.2)',
+                    pointHoverBackgroudColor: 'rgba(244, 172, 65, 0.75)',
+                    lineTension: lineTension
                 },
             ]
         },
