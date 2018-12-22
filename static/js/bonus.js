@@ -80,9 +80,13 @@ function buildRadarChart(sel1, sel2) {
         console.log('Coding Language Data');
         console.log(d);
 
-        // Need select devtype from user entry. For now, hard code it
-        // var sel1 = 'Data scientist or machine learning specialist';
-        // var sel2 = 'Back-end developer';
+        // hard code the values if one of the selections is the default in the drop down
+        if (sel1 == 'Select Developer Type') {
+            sel1 = 'Data scientist or machine learning specialist';
+        }
+        if (sel2 == 'Select Developer Type') {
+            sel2 = 'Back-end developer';
+        }
 
         console.log(d[sel1]);
 
@@ -174,8 +178,14 @@ function init() {
     var selector1 = d3.select("#selDev1");
     var selector2 = d3.select('#selDev2');
     var selectors = [selector1, selector2];
+    // Start with a default search value
     var devTypes = [];
-  
+    var defaultStr = 'Select Developer Type';
+
+    // Initial values fo rthe options list are "Select Developer Type"
+    selector1.append('option').text(defaultStr).property('value', defaultStr);
+    selector2.append('option').text(defaultStr).property('value', defaultStr);
+
     // get the keys from /codinglaguages. The keys are the devtypes
     d3.json('/codinglanguages').then((d) => {
       Object.keys(d).forEach(devType => {
@@ -192,8 +202,8 @@ function init() {
       });
   
       // Use the first sample from the list to build the initial plots
-      const dev1 = devTypes[0];
-      const dev2 = devTypes[2]
+      const dev1 = devTypes[3];
+      const dev2 = devTypes[0];
 
       buildRadarChart(dev1, dev2);
 
