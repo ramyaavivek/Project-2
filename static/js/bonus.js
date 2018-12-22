@@ -1,6 +1,5 @@
-var ctx = document.getElementById("myChart").getContext('2d');
-var label;
-var data;
+var ctx = document.getElementById("flot").getContext('2d');
+
 d3.json("/degrees").then(function(d){
   label=d.label;
   data=d.data;
@@ -11,7 +10,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: label,
         datasets: [{
-            label: 'Salary drawn by undergrad major',
+            label: 'Salary',
             data: data,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -54,3 +53,18 @@ var myChart = new Chart(ctx, {
         }
     }
 })});;
+
+var tcount = document.getElementById("tcount");
+var mcount = document.getElementById("mcount");
+
+var fcount = document.getElementById("fcount");
+var ocount = document.getElementById("ocount");
+
+d3.json("/gender").then(function(d){
+    var label=d.label;
+    var data=d.data;
+    tcount.innerHTML=data[0];
+    fcount.innerHTML=data[1];
+    mcount.innerHTML=data[2];
+    ocount.innerHTML=data[3];
+});

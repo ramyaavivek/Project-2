@@ -1,69 +1,755 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- saved from url=(0050)https://colorlib.com/polygon/gentelella/index.html -->
+<html lang="en" class="gr__colorlib_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <!-- Meta, title, CSS, favicons, etc. -->
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Flush the bacteria</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/vega@4.3.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc10"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.24.1"></script>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://vega.github.io/vega/vega-core.min.js"></script>
-  <script src="https://vega.github.io/vega/vega-core.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-</head>
+    <title>Trek the Tech!</title>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-<body>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>Belly Button Biodiversity Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <div class="well">
-          <h5>SELECT Sample:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Sample MetaData</h3>
+     <!-- bootstrap-progressbar -->
+   
+    <!-- JQVMap -->
+    <!-- Custom Theme Style -->
+    <link href="{{ url_for('static', filename='samples/custom.min.css') }}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    
+  </head>
+
+
+
+
+
+
+
+
+
+
+
+  <body class="nav-md" data-gr-c-s-loaded="true">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="https://colorlib.com/polygon/gentelella/index.html" class="site_title"><i class="fa fa-paw"></i> <span>Trek the Tech!</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="{{ url_for('static', filename='samples/img.png') }}" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>Data Pirates</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br>
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section active">
+                <h3>General</h3>
+                <ul class="nav side-menu" style="">
+                  <li class="active"><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: block;">
+                      <li class="current-page"><a href="/">Dashboard</a></li>
+                     
+                    </ul>
+                  </li>
+                  
+                 
+                </ul>
+              </div>
+              
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+           
+            <!-- /menu footer buttons -->
           </div>
-          <div id="sample-metadata" class="panel-body"></div>
         </div>
-      </div>
-      
-      <div class="col-md-10">
-          <canvas id="myChart">
-            
-            </canvas>
-      </div>
-      <div class="col-md-5">
-         
-          
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="bubble"></div>
-    </div>
-  </div>
 
-  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                
+
+                <li role="presentation" class="dropdown">
+                  
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                      <a>
+                        <span class="image"><img src="{{ url_for('static', filename='samples/img.png') }}" alt="Profile Image"></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="{{ url_for('static', filename='samples/img.png') }}" alt="Profile Image"></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="{{ url_for('static', filename='samples/img.png') }}" alt="Profile Image"></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="{{ url_for('static', filename='samples/img.png') }}" alt="Profile Image"></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main" style="min-height: 1705px;">
+          <!-- top tiles -->
+          <div class="row tile_count">
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+              <div class="count"><div id='tcount'>__</div></div>
+               </div>
+           
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> Total Males</span>
+              <div class="count green"><div id='mcount'>__</div></div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> Total Females</span>
+              <div class="count"><div id='fcount'>__</div></div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Others</span>
+                <div class="count"><div id='ocount'>__</div></div>
+              </div>
+          </div>
+          <!-- /top tiles -->
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="dashboard_graph">
+
+                <div class="row x_title">
+                  <div class="col-md-6">
+                    <h3>Salary drawn by UnderGrad Majors</small></h3>
+                    </div>
+                  <div class="col-md-6">
+                   
+                  </div>
+                </div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                        
+                  <canvas id="flot"></canvas>
+                </div>
+                
+                <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+                  <div class="x_title">
+                    <h2>Top Campaign Performance</h2>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="col-md-12 col-sm-12 col-xs-6">
+                    <div>
+                      <p>Facebook Campaign</p>
+                      <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79" style="width: 80%;"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p>Twitter Campaign</p>
+                      <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="60" aria-valuenow="59" style="width: 60%;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-6">
+                    <div>
+                      <p>Conventional Media</p>
+                      <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="40" aria-valuenow="39" style="width: 40%;"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p>Bill boards</p>
+                      <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50" aria-valuenow="49" style="width: 50%;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </div>
+          <br>
+
+          <div class="row">
+
+
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                  <h2>App Versions</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="https://colorlib.com/polygon/gentelella/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 1</a>
+                        </li>
+                        <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <h4>App Usage across versions</h4>
+                  <div class="widget_summary">
+                    <div class="w_left w_25">
+                      <span>0.1.5.2</span>
+                    </div>
+                    <div class="w_center w_55">
+                      <div class="progress">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w_right w_20">
+                      <span>123k</span>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="widget_summary">
+                    <div class="w_left w_25">
+                      <span>0.1.5.3</span>
+                    </div>
+                    <div class="w_center w_55">
+                      <div class="progress">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w_right w_20">
+                      <span>53k</span>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="widget_summary">
+                    <div class="w_left w_25">
+                      <span>0.1.5.4</span>
+                    </div>
+                    <div class="w_center w_55">
+                      <div class="progress">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w_right w_20">
+                      <span>23k</span>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="widget_summary">
+                    <div class="w_left w_25">
+                      <span>0.1.5.5</span>
+                    </div>
+                    <div class="w_center w_55">
+                      <div class="progress">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w_right w_20">
+                      <span>3k</span>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="widget_summary">
+                    <div class="w_left w_25">
+                      <span>0.1.5.6</span>
+                    </div>
+                    <div class="w_center w_55">
+                      <div class="progress">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w_right w_20">
+                      <span>1k</span>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-md-6">
+              
+                <canvas id="bubble"></canvas>
+              
+            </div>
+
+
+           
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Recent Activities <small>Sessions</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="https://colorlib.com/polygon/gentelella/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 1</a>
+                        </li>
+                        <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+
+                    <ul class="list-unstyled timeline widget">
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                          </h2>
+                            <div class="byline">
+                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                            </div>
+                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                          </h2>
+                            <div class="byline">
+                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                            </div>
+                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                          </h2>
+                            <div class="byline">
+                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                            </div>
+                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                          </h2>
+                            <div class="byline">
+                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                            </div>
+                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-8 col-sm-8 col-xs-12">
+
+
+
+              <div class="row">
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>Visitors location <small>geo-presentation</small></h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                          <a href="https://colorlib.com/polygon/gentelella/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 1</a>
+                            </li>
+                            <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                      <div class="dashboard-widget-content">
+                        <div class="col-md-4 hidden-small">
+                          <h2 class="line_30">125.7k Views from 60 countries</h2>
+
+                          <table class="countries_list">
+                            <tbody>
+                              <tr>
+                                <td>United States</td>
+                                <td class="fs15 fw700 text-right">33%</td>
+                              </tr>
+                              <tr>
+                                <td>France</td>
+                                <td class="fs15 fw700 text-right">27%</td>
+                              </tr>
+                              <tr>
+                                <td>Germany</td>
+                                <td class="fs15 fw700 text-right">16%</td>
+                              </tr>
+                              <tr>
+                                <td>Spain</td>
+                                <td class="fs15 fw700 text-right">11%</td>
+                              </tr>
+                              <tr>
+                                <td>Britain</td>
+                                <td class="fs15 fw700 text-right">10%</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+
+
+                <!-- Start to do list -->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>To Do List <small>Sample tasks</small></h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                          <a href="https://colorlib.com/polygon/gentelella/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 1</a>
+                            </li>
+                            <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                      <div class="">
+                        <ul class="to_do">
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Schedule meeting with new client </p>
+                          </li>
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Create email address for new intern</p>
+                          </li>
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Have IT fix the network printer</p>
+                          </li>
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Copy backups to offsite location</p>
+                          </li>
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Food truck fixie locavors mcsweeney</p>
+                          </li>
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Food truck fixie locavors mcsweeney</p>
+                          </li>
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Create email address for new intern</p>
+                          </li>
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Have IT fix the network printer</p>
+                          </li>
+                          <li>
+                            <p>
+                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Copy backups to offsite location</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End to do list -->
+                
+                <!-- start of weather widget -->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>Daily active users <small>Sessions</small></h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                          <a href="https://colorlib.com/polygon/gentelella/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 1</a>
+                            </li>
+                            <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="temperature"><b>Monday</b>, 07:30 AM
+                            <span>F</span>
+                            <span><b>C</b></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="weather-icon">
+                            <canvas height="84" width="84" id="partly-cloudy-day"></canvas>
+                          </div>
+                        </div>
+                        <div class="col-sm-8">
+                          <div class="weather-text">
+                            <h2>Texas <br><i>Partly Cloudy Day</i></h2>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="weather-text pull-right">
+                          <h3 class="degrees">23</h3>
+                        </div>
+                      </div>
+
+                      <div class="clearfix"></div>
+
+                      <div class="row weather-days">
+                        <div class="col-sm-2">
+                          <div class="daily-weather">
+                            <h2 class="day">Mon</h2>
+                            <h3 class="degrees">25</h3>
+                            <canvas id="clear-day" width="32" height="32"></canvas>
+                            <h5>15 <i>km/h</i></h5>
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="daily-weather">
+                            <h2 class="day">Tue</h2>
+                            <h3 class="degrees">25</h3>
+                            <canvas height="32" width="32" id="rain"></canvas>
+                            <h5>12 <i>km/h</i></h5>
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="daily-weather">
+                            <h2 class="day">Wed</h2>
+                            <h3 class="degrees">27</h3>
+                            <canvas height="32" width="32" id="snow"></canvas>
+                            <h5>14 <i>km/h</i></h5>
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="daily-weather">
+                            <h2 class="day">Thu</h2>
+                            <h3 class="degrees">28</h3>
+                            <canvas height="32" width="32" id="sleet"></canvas>
+                            <h5>15 <i>km/h</i></h5>
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="daily-weather">
+                            <h2 class="day">Fri</h2>
+                            <h3 class="degrees">28</h3>
+                            <canvas height="32" width="32" id="wind"></canvas>
+                            <h5>11 <i>km/h</i></h5>
+                          </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="daily-weather">
+                            <h2 class="day">Sat</h2>
+                            <h3 class="degrees">26</h3>
+                            <canvas height="32" width="32" id="cloudy"></canvas>
+                            <h5>10 <i>km/h</i></h5>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- end of weather widget -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            UC Berkeley Edu
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+     <!-- Bootstrap -->
+    <!-- FastClick -->
+   
+    <!-- iCheck -->
+   
+    <!-- Custom Theme Scripts -->
+    
+<!-- Google Analytics -->
+
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/bonus.js') }}"></script>
-  
+  <script src="{{ url_for('static', filename='js/first.js') }}"></script>
 </body>
 
+ 
 </html>

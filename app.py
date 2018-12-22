@@ -43,7 +43,7 @@ def degrees():
 
     # Use Pandas to perform the sql query
 
-    results = db.session.query(Survey.UndergradMajor, func.avg(Survey.ConvertedSalary)).filter(Survey.UndergradMajor != '').filter(Survey.Currency.contains('U.S. dollars ($)')).filter(Survey.Employment=='Employed full-time').filter(Survey.Student=='No').filter(Survey.YearsCoding=='0-2 years').group_by(Survey.UndergradMajor).order_by(func.max(Survey.ConvertedSalary)).all()
+    results = db.session.query(Survey.UndergradMajor, func.max(Survey.ConvertedSalary)).filter(Survey.UndergradMajor != '').filter(Survey.Currency.contains('U.S. dollars ($)')).filter(Survey.Employment=='Employed full-time').filter(Survey.Student=='No').filter(Survey.YearsCoding=='0-2 years').group_by(Survey.UndergradMajor).order_by(func.max(Survey.ConvertedSalary)).all()
     
     list1=[]
     list2=[]
@@ -71,7 +71,6 @@ def getjob():
     results = db.session.query(Survey.JobSatisfaction, func.count(Survey.JobSatisfaction)).group_by(Survey.JobSatisfaction).all()
     label1=[]
     data1=[]
-    majorList = []
     jobdict = {}
     for result in results:
         
@@ -83,26 +82,28 @@ def getjob():
     print(jobdict)
     return jsonify(jobdict)
 
-@app.route("/freq/<sample>")
-def sample_freq(sample):
+@app.route("/gender")
+def getGender():
     """Return the MetaData for a given sample."""
     print("inside the loop")
-    sel = [
-        Samples_Metadata.sample,
-        Samples_Metadata.WFREQ,
-    ]
-
-    results = db.session.query(*sel).filter(Samples_Metadata.sample == sample).all()
-
-    # Create a dictionary entry for each row of metadata information
-    sample_metadata = {}
+    label2=[]
+    data2=[]
+    gender = {}
+    results = db.session.query(Survey.Gender, func.count(Survey.Gender)).group_by(Survey.Gender).all()
+    results1=db.session.query(func.count(Survey.Respondent)).all()
+    label2.append('Total')
+    data2.append(results1[0][0])
+   # Create a dictionary entry for each row of metadata information
     for result in results:
-        sample_metadata["sample"] = result[0]
-        
-        sample_metadata["WFREQ"] = result[1]
+            
+            label2.append(result[0])
+            data2.append(result[1])
 
-    print(sample_metadata)
-    return jsonify(sample_metadata)
+    gender['label']=label2
+    gender['data']=data2  
+    
+    print(results)
+    return jsonify(gender)
 
 @app.route("/samples/<sample>")
 def samples(sample):
