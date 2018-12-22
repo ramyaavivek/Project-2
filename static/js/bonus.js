@@ -72,93 +72,147 @@ d3.json("/gender").then(function(d){
 ///////////////////////////
 // Radar Chart
 
-// get data using d3
-d3.json('/codinglanguages').then(d => {
-    // log data for verificatiion
-    console.log('Coding Language Data');
-    console.log(d);
+function buildRadarChart(sel1, sel2) {
 
-    // Need select devtype from user entry. For now, hard code it
-    var sel1 = 'Data scientist or machine learning specialist';
-    var sel2 = 'Back-end developer';
+    // get data using d3
+    d3.json('/codinglanguages').then(d => {
+        // log data for verificatiion
+        console.log('Coding Language Data');
+        console.log(d);
 
-    console.log(d[sel1]);
+        // Need select devtype from user entry. For now, hard code it
+        // var sel1 = 'Data scientist or machine learning specialist';
+        // var sel2 = 'Back-end developer';
 
-    var dev1= d[sel1];
-    var dev2 = d[sel2];
+        console.log(d[sel1]);
 
-    // use object.enteries and forEach to iterate over each dev data and push the keys to labels list and values to data list
-    // define function to format data
-    function dataFormatter(ob1, ob2) {
-        // define empty lists to hold data and labels
-        var data1 = [];
-        var labels = [];
-        var data2 = [];
+        var dev1= d[sel1];
+        var dev2 = d[sel2];
 
-        // loop over the input object and push the values to data list and keys to labels list
-        Object.entries(ob1).forEach(([key, value]) => {
-            labels.push(key);
-            data1.push(value);
-        });
+        // use object.enteries and forEach to iterate over each dev data and push the keys to labels list and values to data list
+        // define function to format data
+        function dataFormatter(ob1, ob2) {
+            // define empty lists to hold data and labels
+            var data1 = [];
+            var labels = [];
+            var data2 = [];
 
-        // labels are the same for all data
-        Object.entries(ob2).forEach(([key, value]) => {
-            data2.push(value);
-        });
+            // loop over the input object and push the values to data list and keys to labels list
+            Object.entries(ob1).forEach(([key, value]) => {
+                labels.push(key);
+                data1.push(value);
+            });
 
-        // dictionary to hold all the lists of data
-        var dataDict = {
-                        data1: data1,
-                        title1: sel1,
-                        data2: data2,
-                        title2: sel2,
-                        labels: labels,
-                        };
+            // labels are the same for all data
+            Object.entries(ob2).forEach(([key, value]) => {
+                data2.push(value);
+            });
 
-        return dataDict;
-    }
+            // dictionary to hold all the lists of data
+            var dataDict = {
+                            data1: data1,
+                            title1: sel1,
+                            data2: data2,
+                            title2: sel2,
+                            labels: labels,
+                            };
 
-    var langData = {};
-    
-    langData = dataFormatter(dev1, dev2);
-
-    console.log(langData.data1, langData.data2, langData.labels);
-
-    // All data contained in data object. Let's build the chart!
-    var ctxRadar = document.getElementById('radar').getContext('2d');
-
-    var options = {
-        scale: {
-            // Hides the scale
-            // display: false
+            return dataDict;
         }
-    };
 
-    var lineTension = 5;
+        var langData = {};
+        
+        langData = dataFormatter(dev1, dev2);
 
-    var myRadarChart = new Chart(ctxRadar, {
-        type: 'radar',
-        data: {
-            labels: langData.labels,
-            datasets: [
-                {
-                    data: langData.data1,
-                    label: langData.title1,
-                    backgroundColor: 'rgba(66, 164, 244, 0.2)',
-                    pointHoverBackgroudColor: 'rgba(66, 164, 244, 0.75)',
-                    lineTension: lineTension
-                    
-                }, 
-                {
-                    data: langData.data2,
-                    label: langData.title2,
-                    backgroundColor: 'rgba(244, 172, 65, 0.2)',
-                    pointHoverBackgroudColor: 'rgba(244, 172, 65, 0.75)',
-                    lineTension: lineTension
-                },
-            ]
-        },
-        options: options
+        console.log(langData.data1, langData.data2, langData.labels);
+
+        // All data contained in data object. Let's build the chart!
+        var ctxRadar = document.getElementById('radar').getContext('2d');
+
+        var options = {
+            scale: {
+                // Hides the scale
+                // display: false
+            }
+        };
+
+        var lineTension = 5;
+
+        var myRadarChart = new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: langData.labels,
+                datasets: [
+                    {
+                        data: langData.data1,
+                        label: langData.title1,
+                        backgroundColor: 'rgba(66, 164, 244, 0.2)',
+                        pointHoverBackgroudColor: 'rgba(66, 164, 244, 0.75)',
+                        lineTension: lineTension
+                        
+                    }, 
+                    {
+                        data: langData.data2,
+                        label: langData.title2,
+                        backgroundColor: 'rgba(244, 172, 65, 0.2)',
+                        pointHoverBackgroudColor: 'rgba(244, 172, 65, 0.75)',
+                        lineTension: lineTension
+                    },
+                ]
+            },
+            options: options
+        });
+
+    })
+}
+
+//////////////////
+// Initializer
+
+function init() {
+    // Grab a reference to both dropdown select element on radar chart section
+    var selector1 = d3.select("#selDev1");
+    var selector2 = d3.select('#selDev2');
+    var selectors = [selector1, selector2];
+    var devTypes = [];
+  
+    // get the keys from /codinglaguages. The keys are the devtypes
+    d3.json('/codinglanguages').then((d) => {
+      Object.keys(d).forEach(devType => {
+        console.log(devType);
+        devTypes.push(devType);
+        
+        // Populate both menus using a for loop
+        for (var i=0; i<selectors.length;i++) {
+            selectors[i]
+                .append("option")
+                .text(devType)
+                .property("value", devType);
+        }
+      });
+  
+      // Use the first sample from the list to build the initial plots
+      const dev1 = devTypes[0];
+      const dev2 = devTypes[2]
+
+      buildRadarChart(dev1, dev2);
+
     });
+  }
 
-})
+  function radarOptionChanged1(devType1) {
+    // select the text from the other drop down menu
+    const devType2 = d3.select('#selDev2 option:checked').text();
+    // Fetch new data each time a new sample is selected
+    buildRadarChart(devType1, devType2);
+  }
+
+  function radarOptionChanged2(devType2) {
+    // select the text from the other drop down menu
+    const devType1 = d3.select('#selDev1 option:checked').text();
+    // Fetch new data each time a new sample is selected
+    buildRadarChart(devType1, devType2);
+  }
+
+  init();
+

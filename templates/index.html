@@ -243,39 +243,38 @@
           <div class="row">
             <!--Radar Chart Goes Here-->
               <!-- <div> class="x_panel tile fixed_height_320" -->
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="col-md-7 col-sm-7 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
                   <h4>Coding Skills</h2>
                  
                 </div>
                 <div class="x_content">
-                  <h4>Percentage Breakdown of Popular Coding Languages</h4>
                   <!--Dropdown Menus-->
-                  <div class='col-xs-6'>
-                      <div class="well">
+                  <form>
+                    <div class="form-row">
+                        <div class="col-md-6 my-1">
                           <h6>SELECT Dev Type 1:</h6>
-                          <select id="selDev1" onchange="optionChanged(this.value)"></select>
+                          <select class='custom-select mr-sm-2' id="selDev1" onchange="radarOptionChanged1(this.value)"></select>
                       </div>
                     </div>
-                    <div class='col-xs-6'>
-                    <div class="well">
+                      <div class="col-md-6 my-1">
                         <h6>SELECT Dev Type 2:</h6>
-                        <select id="selDev2" onchange="optionChanged(this.value)"></select>
+                        <select class='custom-select mr-sm-2' id="selDev2" onchange="radarOptionChanged2(this.value)"></select>
                     </div>
-                    </div>
+                  </form>
+                  <br>
                     <!--Radar Chart Canvas-->
                     <canvas id='radar' class='chartjs' width="500" height="500"></canvas>
                 </div>
                 </div>  
                 </div>
                 <!--Donut Chart Goes Here-->
-                <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="col-md-5 col-sm-5 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
                     <h4>Job Satisfaction Breakdown</h4>
                     </div>
-                
                 <div class="x_content">
                     <canvas id="bubble"></canvas>
                 </div>
@@ -302,7 +301,6 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/first.js') }}"></script>
   <script src="{{ url_for('static', filename='js/bonus.js') }}"></script>
- 
 </body>
 
  
