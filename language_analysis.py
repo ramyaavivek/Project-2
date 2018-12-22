@@ -54,13 +54,14 @@ def languageAnalysis():
     # explode the devtype column so there's only one devtype for each row
     expdev_df = pd.DataFrame(df.DevType.str.split(';').tolist(), index=[df.Respondent, df.LanguageWorkedWith, df.DatabaseWorkedWith, df.FrameworkWorkedWith]).stack()
 
+    # reset index
     expdev_df = expdev_df.reset_index()
 
+    # rename columns= that contains the 'devtype' data
     expdev_df = expdev_df.rename(columns={0:'DevType'})
     expdev_df = expdev_df.drop(columns='level_4')
 
-    expdev_df.head()
-
+    # Split each str in the df into a list. The values are delimited by ':'
     expdev_df['LanguageList'] = expdev_df.LanguageWorkedWith.str.split(';')
     expdev_df.head()
 
