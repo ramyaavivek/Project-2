@@ -43,33 +43,46 @@ def index():
 def degrees():
     """Return a list of sample names."""
 
-    # Use Pandas to perform the sql query
+    # SQL query filter for US dollars, full time employment, and 0-2 yrs coding experience
+    results = db.session.query(Survey.UndergradMajor, Survey.ConvertedSalary) .filter(Survey.Currency.contains('U.S. dollars ($)')).filter(Survey.Employment=='Employed full-time') .filter(Survey.Student=='No').filter(Survey.YearsCodingProf=='0-2 years').filter(Survey.ConvertedSalary != 0) .order_by(Survey.ConvertedSalary.desc()).all()
 
-    results = db.session.query(Survey.UndergradMajor, func.max(Survey.ConvertedSalary)).filter(Survey.UndergradMajor != '').filter(Survey.Currency.contains('U.S. dollars ($)')).filter(Survey.Employment=='Employed full-time').filter(Survey.Student=='No').filter(Survey.YearsCoding=='0-2 years').group_by(Survey.UndergradMajor).order_by(func.max(Survey.ConvertedSalary)).all()
-    
-    list1=[]
-    list2=[]
-    majorList = []
+    # Convert to dataframe
+    df = pd.DataFrame(results)
+
+    # Replace empty undergrad cells with 'No response'
+    df['UndergradMajor'] = df.replace(to_replace='', value='No Survey Response')
+    df = df.dropna()
+    df['ConvertedSalary'] = pd.to_numeric(df['ConvertedSalary'])
+
+    # find median salary for each major
+    medianSalary_df = df.groupby(['UndergradMajor']).median()
+    medianSalary_df = medianSalary_df.rename(columns={'ConvertedSalary':'MedianSalary'})
+
+    # Get counts
+    count_df = df.groupby(['UndergradMajor']).count()
+    count_df = count_df.rename(columns={'ConvertedSalary':'NumRespondents'})
+
+    merged_df = pd.concat([medianSalary_df, count_df], axis =1)
+    merged_df = merged_df.sort_values(by='MedianSalary', ascending=False)
+
+    # convert to lists for later jsonification
+    salaries = merged_df['MedianSalary'].tolist()
+    numResp = merged_df['NumRespondents'].tolist()
+    majors = merged_df.index.tolist()
+
     majorDict = {}
-    for result in results:
-        
-        list1.append(result[0])
-        list2.append(result[1])
-       
-    majorDict['label']=list1
-    majorDict['data']=list2    
-    #majorList.append(majorDict)
 
-    # df = pd.read_sql_query(results, db.session.bind)
-    # df_degrees = dfYoung[['UndergradMajor','ConvertedSalary']]
-    # df_degrees=df_degrees.groupby('UndergradMajor').max()
-    # Return a list of the column names (sample names)
+    majorDict['data'] = salaries
+    majorDict['label'] = majors
+    majorDict['numRespondents'] = numResp
+    
+
     return jsonify(majorDict)
 
 
 @app.route("/jobsatisfaction")
 def getjob():
-    """Return the MetaData for a given sample."""
+    """Return the job satisfaction data."""
     results = db.session.query(Survey.JobSatisfaction, func.count(Survey.JobSatisfaction)).group_by(Survey.JobSatisfaction).all()
     label1=[]
     data1=[]
@@ -88,7 +101,7 @@ def getjob():
 
 @app.route("/gender")
 def getGender():
-    """Return the MetaData for a given sample."""
+    """Return the number of participants in the survey by gender."""
     print("inside the loop")
     label2=[]
     data2=[]
@@ -120,7 +133,7 @@ def codingLanguages():
 
 @app.route("/countries")
 def countries():
-    """Return `otu_ids`, `otu_labels`,and `sample_values`."""
+    """Gives the proportion of countries that participated in the survey"""
     label3=[]
     data3=[]
     countries = {}

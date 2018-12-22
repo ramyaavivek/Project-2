@@ -10,7 +10,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: label,
         datasets: [{
-            label: 'Salary',
+            label: 'Median Salary',
             data: data,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
