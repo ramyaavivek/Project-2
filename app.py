@@ -7,7 +7,7 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
-from sqlalchemy import func
+from sqlalchemy import func,desc
 
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -75,8 +75,10 @@ def getjob():
     data1=[]
     jobdict = {}
     for result in results:
-        
-        label1.append(result[0])
+        if(result[0]==''):
+            label1.append("Others")
+        else:
+            label1.append(result[0])
         data1.append(result[1])
        
     jobdict['label']=label1
@@ -116,25 +118,24 @@ def codingLanguages():
     return jsonify(languageData)
 
 
-@app.route("/samples/<sample>")
-def samples(sample):
+@app.route("/countries")
+def countries():
     """Return `otu_ids`, `otu_labels`,and `sample_values`."""
-    stmt = db.session.query(Samples).statement
-    df = pd.read_sql_query(stmt, db.session.bind)
+    label3=[]
+    data3=[]
+    countries = {}
+    results = db.session.query(Survey.Country,func.count(Survey.Country)).group_by(Survey.Country).order_by(desc(func.count(Survey.Country))).all()
+    # Create a dictionary entry for each row of metadata information
+    for result in results:
+            
+            label3.append(result[0])
+            data3.append(result[1])
 
-    # Filter the data based on the sample number and
-    # only keep rows with values above 1
-    sample_data = df.loc[df[sample] > 1, ["otu_id", "otu_label", sample]]
-    print(df[sample])
-    sample_data=sample_data.sort_values(by=[sample],ascending=False)
-    print(sample_data.head(4))
-    # Format the data to send as json
-    data = {
-        "otu_ids": sample_data.otu_id.values.tolist(),
-        "sample_values": sample_data[sample].values.tolist(),
-        "otu_labels": sample_data.otu_label.tolist(),
-    }
-    return jsonify(data)
+    countries['label']=label3
+    countries['data']=data3 
+    
+    print(results)
+    return jsonify(countries)
 
 
 if __name__ == "__main__":

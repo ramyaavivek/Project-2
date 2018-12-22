@@ -33,7 +33,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="https://colorlib.com/polygon/gentelella/index.html" class="site_title"><i class="fa fa-paw"></i> <span>Trek the Tech!</span></a>
+              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Trek the Tech!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -77,9 +77,7 @@
         <div class="top_nav">
           <div class="nav_menu">
             <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
+              
 
               <ul class="nav navbar-nav navbar-right">
                 
@@ -152,7 +150,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main" style="min-height: 1705px;">
+        <div class="right_col" role="main" style="min-height: 1305px;">
           <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -195,42 +193,42 @@
                 
                 <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
                   <div class="x_title">
-                    <h2>Top Campaign Performance</h2>
+                    <h2>Participation by Country</h2>
                     <div class="clearfix"></div>
                   </div>
 
                   <div class="col-md-12 col-sm-12 col-xs-6">
                     <div>
-                      <p>Facebook Campaign</p>
+                      <p id="c1">United States</p>
                       <div class="">
                         <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79" style="width: 80%;"></div>
+                          <div id="p1" class="progress-bar bg-green" role="progressbar" data-transitiongoal="100" aria-valuenow="109" style="width: 80%;"></div>
                         </div>
                       </div>
                     </div>
                     <div>
-                      <p>Twitter Campaign</p>
+                      <p id="c2">India</p>
                       <div class="">
-                        <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="60" aria-valuenow="59" style="width: 60%;"></div>
+                        <div  class="progress progress_sm" style="width: 76%;">
+                          <div id="p2" class="progress-bar bg-green" role="progressbar" data-transitiongoal="100" aria-valuenow="59" style="width: 60%;"></div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-12 col-sm-12 col-xs-6">
                     <div>
-                      <p>Conventional Media</p>
+                      <p id="c3">Germany</p>
                       <div class="">
                         <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="40" aria-valuenow="39" style="width: 40%;"></div>
+                          <div id="p3" class="progress-bar bg-green" role="progressbar" data-transitiongoal="100" aria-valuenow="80" style="width: 40%;"></div>
                         </div>
                       </div>
                     </div>
                     <div>
-                      <p>Bill boards</p>
+                      <p id="c4">United Kingdom</p>
                       <div class="">
                         <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50" aria-valuenow="49" style="width: 50%;"></div>
+                          <div id="p4" class="progress-bar bg-green" role="progressbar" data-transitiongoal="100" aria-valuenow="49" style="width: 50%;"></div>
                         </div>
                       </div>
                     </div>
@@ -245,6 +243,7 @@
           <div class="row">
             <!--Radar Chart Goes Here-->
               <!-- <div> class="x_panel tile fixed_height_320" -->
+<<<<<<< HEAD
                 <div class="col-md-6 x_title">
                   <h2>Coding Skills</h2>
                   <!--Navbar stuff-->
@@ -265,37 +264,59 @@
                   </ul>
                   <div class="x_content">
                     <h4>Percentage Breakdown of Popular Coding Languages</h4>
+                    <!--Selection Drop Downs-->
+                  <div class='col-xs-6'>
+                      <div class="well">
+                          <h6>SELECT Dev Type 1:</h6>
+                          <select id="selDev1" onchange="optionChanged(this.value)"></select>
+                      </div>
+                    </div>
+                    <div class='col-xs-6'>
+                    <div class="well">
+                        <h6>SELECT Dev Type 2:</h6>
+                        <select id="selDev2" onchange="optionChanged(this.value)"></select>
+                    </div>
+                    </div>
                     <div>
                       <!--Radar Chart Canvas-->
                       <canvas id='radar' class='chartjs' width="500" height="500"></canvas>
                   </div>
+=======
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h4>Coding Skills</h2>
+                 
+                </div>
+                <div class="x_content">
+                  <h4>Percentage Breakdown of Popular Coding Languages</h4>
+                    <!--Radar Chart Canvas-->
+                    <canvas id='radar' class='chartjs' width="500" height="500"></canvas>
+                </div>
+>>>>>>> 8f87bfa24f4abec28d8d1d2492e37096e48723f1
                 </div>  
                 </div>
                 <!--Donut Chart Goes Here-->
-                <div class="col-md-6 x_title">
-                        <h2>Job Satisfaction</h2>
-                        <!--Navbar stuff-->
-                        <ul class="nav navbar-right panel_toolbox">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-                          <li class="dropdown">
-                            <a href="https://colorlib.com/polygon/gentelella/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                              <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 1</a>
-                              </li>
-                              <li><a href="https://colorlib.com/polygon/gentelella/index.html#">Settings 2</a>
-                              </li>
-                            </ul>
-                          </li>
-                          <li><a class="close-link"><i class="fa fa-close"></i></a>
-                          </li>
-                        </ul>
-                        <div class="x_content">
-                          <h4>How Satisfied are People?</h4>
-                          <div>
-                  <canvas id="bubble"></canvas>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                    <h4>Job Satisfaction Breakdown</h4>
+                    </div>
                 
+                <div class="x_content">
+                    <canvas id="bubble"></canvas>
+                </div>
+                </div>
+              </div>
+              
+              </div>
+            </div>
         </div>
+        </div>
+            
+             
+          </div>
+                
             </div>
             
               

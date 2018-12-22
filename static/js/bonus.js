@@ -64,8 +64,8 @@ d3.json("/gender").then(function(d){
     var label=d.label;
     var data=d.data;
     tcount.innerHTML=data[0];
-    fcount.innerHTML=data[1];
-    mcount.innerHTML=data[2];
+    fcount.innerHTML=data[2];
+    mcount.innerHTML=data[1];
     ocount.innerHTML=data[3];
 });
 
@@ -162,3 +162,37 @@ d3.json('/codinglanguages').then(d => {
     });
 
 })
+
+//////////////////
+// Initializer
+
+function init() {
+    // Grab a reference to both dropdown select element on radar chart section
+    var selector1 = d3.select("#selDev1");
+    var selector2 = d3.select('#selDev2');
+    var selectors = [selector1, selector2];
+    var devTypes = [];
+  
+    // get the keys from /codinglaguages. The keys are the devtypes
+    d3.json('/codinglanguages').then((d) => {
+      Object.keys(d).forEach(devType => {
+        console.log(devType);
+        devTypes.push(devType);
+        
+        // Populate both menus using a for loop
+        for (var i=0; i<selectors.length;i++) {
+            selectors[i]
+                .append("option")
+                .text(devType)
+                .property("value", devType);
+        }
+      });
+  
+      // Use the first sample from the list to build the initial plots
+      const dev1 = devTypes[0];
+      const dev2 = devTypes[2]
+
+    });
+  }
+
+  init();
