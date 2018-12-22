@@ -12,6 +12,8 @@ from sqlalchemy import func
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
+from language_analysis import languageAnalysis
+
 app = Flask(__name__)
 
 
@@ -104,6 +106,15 @@ def getGender():
     
     print(results)
     return jsonify(gender)
+
+@app.route('/codinglanguages')
+def codingLanguages():
+    '''
+    Serves a JSON dictionary of coding language usage by devtype
+    '''
+    languageData = languageAnalysis()
+    return jsonify(languageData)
+
 
 @app.route("/samples/<sample>")
 def samples(sample):
