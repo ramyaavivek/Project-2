@@ -13,6 +13,7 @@ from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 from language_analysis import languageAnalysis
+from salary_language_analysis import salaryLanguageAnalysis
 
 app = Flask(__name__)
 
@@ -129,6 +130,14 @@ def codingLanguages():
     '''
     languageData = languageAnalysis()
     return jsonify(languageData)
+
+@app.route('/salarylanguages')
+def salaryCodingLanguages():
+    '''
+    Serves a JSON dictionary of the salary associated with coding language usage by devtype
+    '''
+    salLanguageData = salaryLanguageAnalysis()
+    return jsonify(salLanguageData)
 
 
 @app.route("/countries")

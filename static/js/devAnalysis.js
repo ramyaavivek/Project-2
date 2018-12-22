@@ -134,9 +134,11 @@ function buildRadarChart(sel1, sel2) {
         var ctxRadar = document.getElementById('radar').getContext('2d');
 
         var options = {
-            scale: {
-                // Hides the scale
-                // display: false
+            title: {
+                display: true,
+                text: 'Language Frequency',
+                position: 'top',
+                fontSize : 24
             }
         };
 
@@ -159,6 +161,106 @@ function buildRadarChart(sel1, sel2) {
                         data: langData.data2,
                         label: langData.title2,
                         backgroundColor: 'rgba(244, 172, 65, 0.2)',
+                        pointHoverBackgroudColor: 'rgba(244, 172, 65, 0.75)',
+                        lineTension: lineTension
+                    },
+                ]
+            },
+            options: options
+        });
+
+    })
+}
+
+function buildRadarChart2(sel1, sel2) {
+
+    // get data using d3
+    d3.json('/salarylanguages').then(d => {
+        // log data for verificatiion
+        console.log('Coding Language Data');
+        console.log(d);
+
+        // hard code the values if one of the selections is the default in the drop down
+        if (sel1 == 'Select Developer Type') {
+            sel1 = 'Data scientist or machine learning specialist';
+        }
+        if (sel2 == 'Select Developer Type') {
+            sel2 = 'Back-end developer';
+        }
+
+        console.log(d[sel1]);
+
+        var dev1= d[sel1];
+        var dev2 = d[sel2];
+
+        // use object.enteries and forEach to iterate over each dev data and push the keys to labels list and values to data list
+        // define function to format data
+        function dataFormatter(ob1, ob2) {
+            // define empty lists to hold data and labels
+            var data1 = [];
+            var labels = [];
+            var data2 = [];
+
+            // loop over the input object and push the values to data list and keys to labels list
+            Object.entries(ob1).forEach(([key, value]) => {
+                labels.push(key);
+                data1.push(value);
+            });
+
+            // labels are the same for all data
+            Object.entries(ob2).forEach(([key, value]) => {
+                data2.push(value);
+            });
+
+            // dictionary to hold all the lists of data
+            var dataDict = {
+                            data1: data1,
+                            title1: sel1,
+                            data2: data2,
+                            title2: sel2,
+                            labels: labels,
+                            };
+
+            return dataDict;
+        }
+
+        var langData = {};
+        
+        langData = dataFormatter(dev1, dev2);
+
+        console.log(langData.data1, langData.data2, langData.labels);
+
+        // All data contained in data object. Let's build the chart!
+        var ctxRadar = document.getElementById('radar2').getContext('2d');
+
+        var options = {
+            title: {
+                display: true,
+                text: 'Salary',
+                position: 'top',
+                fontSize : 24
+            },
+        };
+
+        var lineTension = 5;
+
+        var myRadarChart = new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: langData.labels,
+                datasets: [
+                    {
+                        data: langData.data1,
+                        label: langData.title1,
+                        backgroundColor: 'rgba(55, 130, 32, 0.2)',
+                        pointHoverBackgroudColor: 'rgba(66, 164, 244, 0.75)',
+                        lineTension: lineTension
+                        
+                    }, 
+                    {
+                        data: langData.data2,
+                        label: langData.title2,
+                        backgroundColor: 'rgba(249, 229, 72, 0.2)',
                         pointHoverBackgroudColor: 'rgba(244, 172, 65, 0.75)',
                         lineTension: lineTension
                     },
@@ -206,7 +308,7 @@ function init() {
       const dev2 = devTypes[0];
 
       buildRadarChart(dev1, dev2);
-
+      buildRadarChart2(dev1, dev2);
     });
   }
 
@@ -215,6 +317,8 @@ function init() {
     const devType2 = d3.select('#selDev2 option:checked').text();
     // Fetch new data each time a new sample is selected
     buildRadarChart(devType1, devType2);
+    buildRadarChart2(devType1, devType2);
+    
   }
 
   function radarOptionChanged2(devType2) {
@@ -222,6 +326,7 @@ function init() {
     const devType1 = d3.select('#selDev1 option:checked').text();
     // Fetch new data each time a new sample is selected
     buildRadarChart(devType1, devType2);
+    buildRadarChart2(devType1, devType2);
   }
 
   init();
